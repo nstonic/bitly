@@ -2,7 +2,7 @@ import requests
 import os
 from dotenv import load_dotenv
 import argparse
-from urllib.parse import urlparse, urlunparse
+from urllib.parse import urlparse
 
 
 def get_short_link(long_link: str, token: str) -> str:
@@ -57,7 +57,7 @@ def main():
     args = parser.parse_args()
     input_link = args.input_link
     parsed_link = urlparse(input_link)
-    link_without_scheme = parsed_link[1:]
+    link_without_scheme = ''.join(parsed_link[1:])
     load_dotenv()
     bitly_token = os.environ['BITLY_TOKEN']
 
