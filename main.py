@@ -53,6 +53,7 @@ def is_bitlink(input_link: str, token: str) -> bool:
   bitly_response = requests.get(url=url, headers=headers)
   return bitly_response.ok
 
+
 def main():
   parser = argparse.ArgumentParser()
   parser.add_argument("input_link")
