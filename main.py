@@ -57,7 +57,7 @@ def main():
     args = parser.parse_args()
     input_link = args.input_link
     parsed_link = urlparse(input_link)
-    link_without_scheme = ''.join(parsed_link[1:])
+    link_without_scheme = parsed_link.netloc + parsed_link.path
     load_dotenv()
     bitly_token = os.environ['BITLY_TOKEN']
 
