@@ -2,6 +2,7 @@ import requests
 import os
 from dotenv import load_dotenv
 import argparse
+from urllib.parse import urlparse, urlunparse
 
 
 def get_short_link(long_link: str, token: str) -> str:
@@ -57,11 +58,13 @@ def main():
   parser.add_argument("input_link")
   args = parser.parse_args()
   input_link = args.input_link
+  parsed_link = urlparse(input_link)
+  parsed_link.scheme = ''
   load_dotenv()
   bitly_token = os.environ['BITLY_TOKEN']
 
-  if is_bitlink(input_link.split('//')[1], bitly_token):
-    click_counter = count_clicks(input_link.split('//')[1], bitly_token)
+  if is_bitlink(urlunparse(parsed_link), bitly_token):
+    click_counter = count_clicks(urlunparse(parsed_link), bitly_token)
     print(f"По Вашей ссылке прошли {click_counter} раз(а)")
   else:
     print("Битлинк: ", get_short_link(input_link, bitly_token))
